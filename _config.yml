@@ -1,19 +1,69 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-title: Brendan Lim
-email: brendangl@gmail.com
-description: > 
-  blah
-baseurl: "" # the subpath of your site, e.g. /blog
+# SITE CONFIGURATION
+baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://brendanlim.com" # the base hostname & protocol for your site
-twitter_username: ok
-github_username:  brendanlim
 
-# Build settings
+# THEME-SPECIFIC CONFIGURATION
+theme:
+  # Meta
+  title: Brendan Lim
+  avatar: avatar.jpg
+  gravatar: # Email MD5 hash
+  description: "Blah and blah" # used by search engines
+
+  # Header and footer text
+  header_text:
+  header_text_feature_image:
+  footer_text:
+
+  # Icons
+  rss: false
+  email_address: # Full email address, e.g. "sam@example.com"
+  behance:
+  bitbucket:
+  dribbble:
+  facebook:
+  flickr: "brendanlim"
+  github:
+  google_plus:
+  instagram:
+  linkedin:  # Full URL
+  pinterest:
+  reddit:
+  soundcloud:
+  stack_exchange:  # Full URL
+  steam:
+  tumblr:
+  twitter: "ok"
+  wordpress:
+  youtube:
+
+  # Scripts
+  google_analytics: # Tracking ID, e.g. "UA-000000-01"
+  disqus_shortname:
+  katex: true # Enable if using math markup
+
+  # Localization strings
+  str_follow_on: "Follow on"
+  str_rss_follow: "Follow RSS feed"
+  str_email: "Email"
+  str_next: "Next"
+  str_prev: "Prev"
+  str_continue_reading: "Continue reading"
+
+  # Colours, typography and padding
+  # Open the "_sass > base" folder, and open "_variables.scss"
+  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
+
+  # Post navigation
+  post_navigation: false
+
+# PAGINATION
+paginate: 5
+paginate_path: "blog/page:num"
+
+# BUILD SETTINGS
 markdown: kramdown
+highlighter: pygments
+sass:
+  sass_dir: _sass
+  style: :compressed
