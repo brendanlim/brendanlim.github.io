@@ -1,0 +1,62 @@
+---
+layout: post
+title: Mobilize Your Rails Application with Mobile Fu
+date: 2008-08-07 02:33:00.000000000 -07:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta: {}
+author: 
+---
+<p>I originally posted this article on <a href="http://intridea.com">Intridea's Blog</a> at  <a href="http://www.intridea.com/2008/7/21/mobilize-your-rails-application-with-mobile-fu">http://www.intridea.com/2008/7/21/mobilize-your-rails-application-with-mobile-fu</a>. I thought I'd go ahead and post it here as well.  No worries, if you've read it before, it's the exact same thing. </p></p>
+<p> Let's face it, iPhone interfaces are awesome, but they can only cater to a fraction of the mobile market.   What are you to do if you want to satisfy the rest of the mobile world?  Mobile Fu helps to make this job much easier by automatically detecting mobile devices that access your Rails application. People can access your site from a Palm, Blackberry, iPhone, Nokia, etc. and it will automatically adjust the format of the request from :html to :mobile.</p>
+<h3>Learn Mobile Fu</h3>
+<p>First off, just install the <a href="http://github.com/brendanlim/mobile-fu/tree/master">Mobile Fu</a> plugin into your Rails application.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>script/plugin install git://github.com/brendanlim/mobile-fu.git</pre>
+</div>
+</div>
+<p> Start by adding this one line to your ApplicationController.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>class ApplicationController &lt; ActionController::Base
+  has_mobile_fu
+end</pre>
+</div>
+</div>
+<p> Once this is in place, any request that comes from a mobile device will be be set as :mobile format. It is up to you to determine how you want to handle these requests by creating the .mobile.erb versions of your views that are to be requested.  Also, I recommend that you setup a before_filter that will redirect to a specific page depending on whether or not it is a mobile request.  How can you check this?</p>
+<div class="CodeRay">
+<div class="code">
+<pre>is_mobile_device? # =&gt; Returns true or false depending on the device</pre>
+</div>
+</div>
+<p> You can also determine which format is currently set in by calling the method below.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>is_mobile_view? # =&gt; Returns true or false depending on current req. format</pre>
+</div>
+</div>
+<p> If you want the ability to allow a user to switch between ‘mobile’ and ‘standard’ format (:html), you can just adjust the mobile_view session variable in a custom controller action.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>session[:mobile_view] # =&gt; Set to true if request format is :mobile and false
+                      # if set to :html</pre>
+</div>
+</div>
+<h3>What About Custom Mobile Styling?</h3>
+<p>Different devices need different styling. Don’t worry though, we’ve got this baked in to Mobile Fu (thanks to Intridea's own Michael Bleigh, who created <a href="http://www.intridea.com/2007/12/9/announcing-browserized-styles%20">Browserized Styles</a> for letting me modify his code).  If you are including a css or sass file via stylesheet_link_tag, all you have to do is add _device to the name of one of your files to override your styling for a certain device. The stylesheet that is loaded is dependant on which device is making the request.   </p></p>
+<p> Supported stylesheet override device extensions at the moment are:   <em>blackberry, iphone, mobileexplorer, nokia, palm</em></p>
+<div class="CodeRay">
+<div class="code">
+<pre>e.g., Accessing a page from a Blackberry.
+
+  
+
+Ends up loading mobile.css, and mobile_blackberry.css if the file exists.</pre>
+</div>
+</div>
+<h3>Feature Requests</h3>
+<p>You can check out Mobile Fu's very own project page at <a href="http://actsascommunity.com/projects/mobile-fu/profile">Acts As Community</a>.  If you have any problems or would like me to add a certain feature, please create a ticket at <a href="http://blim.lighthouseapp.com/projects/14490-mobile-fu/overview">http://blim.lighthouseapp.com/projects/14490-mobile-fu/</a>.  Also, feel free to fork Mobile Fu and make any enhancements you please from its GitHub location at: <a href="http://github.com/brendanlim/mobile-fu/tree/master">http://github.com/brendanlim/mobile-fu/tree/master</a></p>

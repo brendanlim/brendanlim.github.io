@@ -1,0 +1,41 @@
+---
+layout: post
+title: Crop Images Using attachment_fu and RMagick
+date: 2007-07-28 11:41:00.000000000 -07:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta: {}
+author: 
+---
+<p>I'm a big fan of attachment_fu, but one of the things that it doesn't do 'out-of-the-box' is allow you to specify a fixed width and height for a thumbnail so that you can create a cropped image. I spent a while digging around other sites and found some great tips from Toolman Tim regarding cropping images in attachment_fu using mini magick -- but what if you to stick with RMagick? In the model that is used for your uploaded images, just add a bang (!) to force a crop. Notice how the thumbnail type 'cropped' specifies height and width and contains a bang (!). </p></p>
+<div class="CodeRay">
+<div class="code">
+<pre>has_attachment :content_type =&gt; :image, 
+               :storage =&gt; :s3,
+               :path_prefix =&gt; '/your_directory/', 
+               :max_size =&gt; 500.kilobytes,
+               :resize_to =&gt; '400&gt;',
+               :thumbnails =&gt; { 
+                 :regular_resize =&gt; '60', 
+                 :cropped =&gt; '50x50!' }</pre>
+</div>
+</div></p>
+<p>  Now, the next step is to modify rmagick_processor.rb in the processors directory of attachment_fu. Just replace your resize_image method with the one below and you should be good to go.</p>
+<div class="CodeRay">
+<div class="code">
+<pre># Performs the actual resizing operation for a thumbnail
+def resize_image(img, size)
+  size = size.first if size.is_a?(Array) &amp;&amp; size.length == 1 &amp;&amp; !size.first.is_a?(Fixnum)
+  if size.is_a?(Fixnum) || (size.is_a?(Array) &amp;&amp; size.first.is_a?(Fixnum))
+    size = [size, size] if size.is_a?(Fixnum)
+    img.crop_resized!(*size)
+  else
+    img.change_geometry(size.to_s) { |cols, rows, image| image.crop_resized!(cols, rows) }
+  end
+  self.temp_path = write_to_temp_file(img.to_blob)
+end</pre>
+</div>
+</div>

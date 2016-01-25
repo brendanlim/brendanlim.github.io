@@ -1,0 +1,33 @@
+---
+layout: post
+title: TinyURL Rails Plugin - ActsAsTinyURL
+date: 2008-01-19 23:43:00.000000000 -08:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta: {}
+author: 
+---
+<p>Today, I felt like making a quick little Rails plugin and what better &amp; easier than one that ties into TinyURL's <a href="http://tinyurl.com" target="_blank">tinyurl.com</a> URL shortening services.  The service works by you submitting them a URL, and they return to you a nice shortened version that redirects to the URL that you originally submitted.  I've had to integrate their services into a web application before, but I didn't see a plugin made for this, so I thought I'd whip one up called <a href="http://code.google.com/p/acts-as-tiny-url/">ActsAsTinyURL</a> because it was quick and easy. </p></p>
+<div class="CodeRay">
+<div class="code">
+<pre>script/plugin install http://acts-as-tiny-url.googlecode.com/svn/trunk/acts_as_tiny_url</pre>
+</div>
+</div>
+<p> How do you use it?  It's extremely simple.  Once installed, open up a controller you want to use it in and put 'include ActsAsTinyURL' right underneath the class declaration.    </p></p>
+<div class="CodeRay">
+<div class="code">
+<pre>class ApplicationController &lt; ActionController::Base
+  include ActsAsTinyURL
+end</pre>
+</div>
+</div>
+<p> Once you've got this in place, you can start doing some quick magic.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>tiny_url("http://brendanlim.com")  # =&gt; http://tinyurl.com/3274fk</pre>
+</div>
+</div>
+<p> Expect updates within the next few days when I get some added time in my schedule.</p>

@@ -1,0 +1,48 @@
+---
+layout: post
+title: Send Text Messages From Rails with SMS Fu
+date: 2008-02-29 02:44:00.000000000 -08:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta: {}
+author: 
+---
+<p>This plugin has been sitting dormant for a while and I haven't had a chance to really write about it since I've been so busy lately.  Basically what this is, is just a quick Rails plugin that allows you to send an SMS from your application.  This does not require any kind of "gateway" or third-party service to get the job done.  The plugin takes in a phone number, the carrier, and a message.  From this information, it will format an e-mail correctly that will actually end up being sent to that phone in the form of a text message.  How easy is it to use?  Very. </p></p>
+<p>  You can grab the latest from <a href="http://github.com/brendanlim/sms-fu/">GitHub</a>.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>git clone git://github.com/brendanlim/sms-fu.git vendor/plugins/sms_fu</pre>
+</div>
+</div>
+<p><strong>Supported Carriers:</strong> <span>Sorry, International carriers aren't supported at the moment.</span> Alltel, Ameritech, AT&amp;T, BellSouth Mobility, BlueSkyFrog, Boost Mobile, Cellular South, Fido, Metro PCS, PSC Wireless, Qwest, Southern Link, Sprint, Suncom, T-Mobile (US/UK/Germany), Virgin Mobile, Verizon Wireless, Vodafone (UK,Italy,Japan). </p></p>
+<p> Add this one include line to one of your controllers.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>class ExampleController &lt; ApplicationController
+        has_sms_fu
+      end</pre>
+</div>
+</div>
+<p>After this, just edit <strong>/config/sms_fu.yml</strong> with your custom reply-to address. </p></p>
+<p>  The three required parameters are the phone number, carrier, and the message itself.  You can find the correct carrier codes in <strong>sms_fu.yml</strong>.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>deliver_sms("5558675309","AT&amp;T","your message here")</pre>
+</div>
+</div>
+<p> You can set the maximum length of the SMS message, which is not set by default.  Most phones can only accept 128 characters, and each phone can handle these messages differently.  To set the limit, just pass it in as an option when delivering an SMS.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>deliver_sms("5558675309","AT&amp;T","your message here", :limit =&gt; 200)</pre>
+</div>
+</div>
+<p> If you want to roll your own mailer and just want to use SMS Fu to retrieve the formatted address of the recipient, you can do so by doing the following below.</p>
+<div class="CodeRay">
+<div class="code">
+<pre>get_sms_address("5558675309","AT&amp;T")</pre>
+</div>
+</div>
+<p> Hope you all enjoy, and please send me some feedback on any new features you'd like added.</p>
