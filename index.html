@@ -14,14 +14,15 @@ layout: default
     {% for post in paginator.posts %}
     <div class="post-teaser">
       <header>
-        <h1>
+        <div class="title">
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
             {{ post.title }}
           </a>
-        </h1>
-        <p class="meta">
+        </div>
+        <div class="meta">
           {{ post.date | date: "%B %-d, %Y" }}
-        </p>
+        </div>
+        <div style="clear: both;"></div>
       </header>
       <!-- <div class="excerpt">
         {{# post.excerpt }}
